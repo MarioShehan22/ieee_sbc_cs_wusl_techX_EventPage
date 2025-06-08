@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TeachX</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Animate.css for entrance effects -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    /* Grid background for sections */
+    .grid-bg {
+      background-color: #111;
+      background-image:
+              linear-gradient(rgba(255,152,0,0.04) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,152,0,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(90deg, #1e2a3a 0%, #ff9800 100%);
+      color: #fff;
+      height: 70vh;
+      padding: 100px 0 80px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+              0deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 40px
+      ), repeating-linear-gradient(
+              90deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 40px
+      );
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    .glow-btn {
+      box-shadow: 0 0 18px 4px #ff9800b0, 0 0 2px #fff;
+      transition: box-shadow 0.3s, transform 0.2s;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .glow-btn:hover {
+      box-shadow: 0 0 32px 8px #ff9800, 0 0 4px #fff;
+      transform: scale(1.05);
+    }
+    .section-title {
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: #fff;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    /* What is SLIITXtreme */
+    .about-box {
+      background: rgba(24,24,24,0.95);
+      border-radius: 14px;
+      box-shadow: 0 0 16px 2px #ff980033;
+      padding: 32px 28px;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    /* Statistics */
+    .stats-card {
+      background: rgba(24,24,24,0.92);
+      border-radius: 12px;
+      padding: 32px 0;
+      margin: 16px 0;
+      box-shadow: 0 2px 18px 0 #ff980033;
+      transition: transform 0.2s;
+      border: 1.5px solid #ff9800;
+    }
+    .stats-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 4px 32px 0 #ff980055;
+    }
+    .stats-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #ff9800;
+      text-shadow: 0 0 8px #ff9800aa;
+      margin-bottom: 0.5rem;
+    }
+    /* Awards */
+    .awards-row {
+      justify-content: center;
+      align-items: stretch;
+      gap: 24px 0;
+    }
+    .award-card {
+      background: rgba(24,24,24,0.95);
+      border: 2px solid #ff9800;
+      border-radius: 12px;
+      padding: 24px 10px;
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 0 18px 1px #ff980055;
+      transition: box-shadow 0.2s, transform 0.2s;
+      min-width: 200px;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    .award-card.active {
+      box-shadow: 0 0 32px 8px #ff9800cc;
+      border-width: 3px;
+    }
+    .award-card .award-icon {
+      font-size: 2.5rem;
+      color: #ff9800;
+      margin-bottom: 0.5rem;
+    }
+    .award-card h4 {
+      color: #ff9800;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+    /* Timeline */
+    .timeline-section {
+      padding: 40px 0 80px 0;
+      min-height: 100vh;
+      background-color: #111;
+      /* Grid background */
+      background-image:
+              repeating-linear-gradient(0deg, rgba(255,255,255,0.08) 0, rgba(255,255,255,0.08) 1px, transparent 1px, transparent 40px),
+              repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0, rgba(255,255,255,0.08) 1px, transparent 1px, transparent 40px);
+      background-size: 40px 40px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .timeline-title-main {
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 50px;
+      color: #fff;
+      text-shadow: 0 0 8px #fff, 0 0 32px #333;
+    }
+
+    .timeline-container {
+      position: relative;
+      width: 96vw;
+      max-width: 1200px;
+      margin: 0 auto;
+      z-index: 2;
+    }
+
+    .timeline-center-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background: #ff9800;
+      border-radius: 2px;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .timeline-row {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 80px;
+      z-index: 2;
+    }
+    .timeline-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-col {
+      flex: 1 1 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      min-width: 0;
+    }
+    .timeline-col.right {
+      justify-content: flex-start;
+    }
+
+    .timeline-card {
+      background: #111;
+      border: 2px solid #ff9800;
+      box-shadow: 0 0 0 0 #ff9800, 0 0 0 0 #ff9800;
+      color: #fff;
+      min-width: 340px;
+      max-width: 440px;
+      padding: 32px 36px 24px 36px;
+      position: relative;
+      z-index: 2;
+      font-size: 1.13rem;
+      margin: 0 0 0 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: box-shadow 0.2s, border-color 0.2s;
+      border-radius: 12px;
+    }
+    .timeline-card.highlight {
+      box-shadow: 0 0 32px 8px #ff9800cc, 0 0 48px 12px #ff9800cc;
+      border: 2.5px solid #ff9800;
+      animation: glow 1.5s infinite alternate;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 32px 8px #ff9800cc, 0 0 48px 12px #ff9800cc; }
+      to   { box-shadow: 0 0 56px 16px #ff9800cc, 0 0 64px 24px #ff9800cc; }
+    }
+    .timeline-card .timeline-title {
+      font-size: 1.21rem;
+      font-weight: bold;
+      margin-bottom: 0.2em;
+      color: #fff;
+    }
+    .timeline-card .timeline-date {
+      color: #ff9800;
+      font-size: 1em;
+      font-style: italic;
+      margin-bottom: 0.6em;
+      opacity: 0.85;
+    }
+    .timeline-card .timeline-desc {
+      font-size: 1.01em;
+      color: #fff;
+      opacity: 0.92;
+    }
+
+    /* Connector line and dot */
+    .timeline-connector-wrap {
+      width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+    .timeline-connector {
+      width: 34px;
+      height: 2.5px;
+      background: #ff9800;
+      border-radius: 2px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+    .timeline-dot {
+      width: 22px;
+      height: 22px;
+      background: #ff9800;
+      border: 4px solid #111;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #ff9800aa;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+    }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .timeline-container { width: 99vw; }
+      .timeline-card { min-width: 0; max-width: 99vw; }
+    }
+    @media (max-width: 900px) {
+      .timeline-card { padding: 24px 12px 20px 12px; font-size: 1em;}
+    }
+    @media (max-width: 767px) {
+      .timeline-section { padding: 16px 0 40px 0; }
+      .timeline-title-main { font-size: 1.3rem; margin-bottom: 22px;}
+      .timeline-container { width: 100vw; }
+      .timeline-center-line { left: 18px; width: 3px; }
+      .timeline-row {
+        flex-direction: column;
+        margin-bottom: 36px;
+        align-items: flex-start;
+      }
+      .timeline-col, .timeline-col.right {
+        justify-content: flex-start;
+        width: 100%;
+      }
+      .timeline-card {
+        margin: 0 0 0 36px !important;
+        min-width: 0;
+        max-width: 95vw;
+        width: 100%;
+        font-size: 0.97em;
+        padding: 16px 8px 14px 12px;
+      }
+      .timeline-connector-wrap { display: none; }
+      .timeline-dot {
+        left: 18px;
+        margin: 12px 0;
+        position: static;
+        transform: none;
+      }
+    }
+    /* White horizontal grid lines */
+    .timeline-section::before,
+    .timeline-section::after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0; right: 0;
+      height: 2px;
+      background: rgba(255,255,255,0.14);
+      z-index: 0;
+    }
+    .timeline-section::before { top: 0; }
+    .timeline-section::after { bottom: 0; }
+    /* Add more horizontal lines between timeline rows */
+    .timeline-row:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      top: 100%;
+      height: 2px;
+      background: rgba(255,255,255,0.14);
+      z-index: 0;
+    }
+
+    /* Endorsements */
+    .endorsement-box {
+      background: rgba(24,24,24,0.95);
+      border: 2px solid #ff9800;
+      border-radius: 12px;
+      padding: 24px 32px;
+      box-shadow: 0 0 18px 1px #ff980055;
+      color: #fff;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .endorsement-box:hover {
+      box-shadow: 0 0 32px 8px #ff9800cc;
+      transform: scale(1.03);
+    }
+    .endorsement-title {
+      color: #ff9800;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .endorsement-divider {
+      width: 40px;
+      height: 3px;
+      background: #ff9800;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+    /* Sponsors */
+    .sponsor-card {
+      background: rgba(24,24,24,0.95);
+      border: 2px solid #ff9800;
+      height: 10rem;
+      border-radius: 12px;
+      padding: 24px 10px;
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 0 18px 1px #ff980055;
+      margin: 0 12px;
+      min-width: 180px;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .sponsor-icon {
+      font-size: 2.2rem;
+      color: #ff9800;
+      margin-bottom: 0.5rem;
+    }
+    .sponsor-badge {
+      background: #222;
+      color: #ff9800;
+      border-radius: 10px;
+      padding: 2px 10px;
+      font-size: 0.95rem;
+      margin-top: 8px;
+      border: 1px solid #ff9800;
+      display: inline-block;
+    }
+    /* Registration */
+    .registration-section {
+      background: linear-gradient(90deg, #1e2a3a 0%, #ff9800 100%);
+      color: #fff;
+      text-align: center;
+      padding: 60px 0 40px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .registration-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+              0deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 40px
+      ), repeating-linear-gradient(
+              90deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 40px
+      );
+      z-index: 0;
+      pointer-events: none;
+    }
+    .registration-content {
+      position: relative;
+      z-index: 1;
+    }
+    .countdown {
+      font-size: 2.2rem;
+      font-family: monospace;
+      letter-spacing: 2px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 10px #ff9800, 0 0 4px #fff;
+      margin-bottom: 18px;
+    }
+    /* FAQ */
+    .faq-section.grid-bg {
+      background-color: #111;
+      background-image:
+              linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .faq-accordion {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      background: #181818;
+      border: 2px solid #ff9800;
+      border-radius: 12px;
+      margin-bottom: 18px;
+      box-shadow: 0 0 0 0 #ff9800;
+      transition: box-shadow 0.25s, border-color 0.25s;
+      overflow: hidden;
+    }
+    .faq-item.open {
+      border-color: #ff9800;
+      box-shadow: 0 0 24px 4px #ff9800cc;
+    }
+    .faq-question {
+      width: 100%;
+      padding: 22px 24px;
+      background: none;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 1.15rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.2s;
+      position: relative;
+      letter-spacing: 0.5px;
+    }
+    .faq-item.open .faq-question {
+      color: #ff9800;
+    }
+    .faq-answer {
+      padding: 0 24px 18px 24px;
+      color: #fff;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      background: transparent;
+      max-height: 500px;
+      opacity: 1;
+      transition: max-height 0.3s cubic-bezier(.4,0,.2,1), opacity 0.3s;
+    }
+    .faq-item:not(.open) .faq-answer {
+      max-height: 0;
+      opacity: 0;
+      padding-bottom: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(.4,0,.2,1), opacity 0.3s;
+    }
+    .faq-chevron {
+      font-size: 1.5rem;
+      color: #ff9800;
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+    }
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+    }
+    @media (max-width: 600px) {
+      .faq-question { font-size: 1.01rem; padding: 16px 12px; }
+      .faq-answer { font-size: 0.97rem; padding: 0 12px 12px 12px; }
+    }
+
+    /* Footer */
+    .footer {
+      background: #000;
+      color: #fff;
+      font-size: 1rem;
+      padding: 24px 0 12px 0;
+      text-align: center;
+      border-top: 1.5px solid #ff9800;
+    }
+    /* Responsive tweaks */
+    @media (max-width: 991px) {
+      .timeline-card.left .timeline-box,
+      .timeline-card.right .timeline-box {
+        margin: 0 0 24px 0;
+        text-align: left;
+      }
+      .timeline-vertical {
+        display: none;
+      }
+      .timeline-card::after,
+      .timeline-card::before {
+        display: none;
+      }
+    }
+    @media (max-width: 767px) {
+      .hero-section, .registration-section {
+        padding: 60px 0 40px 0;
+      }
+      .about-box {
+        padding: 18px 12px;
+      }
+      .timeline-box {
+        padding: 18px 12px;
+      }
+      .endorsement-box {
+        padding: 18px 12px;
+      }
+      .sponsor-card {
+        padding: 18px 4px;
+      }
+    }
+    /* Animate numbers */
+    @keyframes neonGlow {
+      0%, 100% { text-shadow: 0 0 8px #ff9800, 0 0 24px #fff;}
+      50% { text-shadow: 0 0 32px #ff9800, 0 0 8px #fff;}
+    }
+    .neon-text {
+      animation: neonGlow 2s infinite;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-content animate__animated animate__fadeInDown">
+    <h1 class="display-4 fw-bold neon-text">Lorem ipsum dolor </h1>
+    <p class="lead mb-4">Lorem ipsum dolor</p>
+    <p>sit amet, consectetur adipisicing elit. Ab alias aliquam asperiores at dicta doloremque doloribus exercitationem, illo impedit, laudantium libero neque numquam odit quia quidem rem repudiandae suscipit temporibus.</p>
+    <div class="d-flex justify-content-center gap-3 mt-4">
+      <a href="#register" class="btn btn-warning btn-lg glow-btn animate__animated animate__pulse animate__infinite">Register</a>
+      <a href="#timeline" class="btn btn-outline-light btn-lg animate__animated animate__fadeInRight">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- What is SLIITXtreme -->
+<section class="py-5 grid-bg">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-5 mb-3 mb-md-0">
+        <img src="https://placehold.co/400x220/222/fff?text=Team+Photo" class="img-fluid rounded shadow-lg" alt="Team">
+      </div>
+      <div class="col-md-7">
+        <div class="about-box">
+          <h2 class="section-title">What is TeachX?</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci alias aliquam, amet beatae deleniti dolore dolores excepturi exercitationem facilis ipsam maxime minima minus numquam pariatur perspiciatis quidem reiciendis tempora unde?
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Statistics -->
+<section class="py-5 grid-bg">
+  <div class="container">
+    <h2 class="section-title">TeachX Statistics</h2>
+    <div class="row text-center">
+      <div class="col-12 col-md-4">
+        <div class="stats-card">
+          <div class="stats-number" id="teams-count">0</div>
+          <p>Teams</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="stats-card">
+          <div class="stats-number" id="participants-count">0</div>
+          <p>Participants</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="stats-card">
+          <div class="stats-number" id="prizes-count">0</div>
+          <p>In Prizes (LKR)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Awards -->
+<!--<section class="py-5 grid-bg">-->
+<!--  <div class="container">-->
+<!--    <h2 class="section-title">Awards</h2>-->
+<!--    <div class="row awards-row">-->
+<!--      <div class="col-12 col-md-4 d-flex justify-content-center">-->
+<!--        <div class="award-card">-->
+<!--          <div class="award-icon">🥈</div>-->
+<!--          <h4>1<sup>st</sup> Runner Up</h4>-->
+<!--          <p>Exciting Prizes</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col-12 col-md-4 d-flex justify-content-center">-->
+<!--        <div class="award-card active">-->
+<!--          <div class="award-icon">🥇</div>-->
+<!--          <h4>Champion</h4>-->
+<!--          <p>Grand Prize</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col-12 col-md-4 d-flex justify-content-center">-->
+<!--        <div class="award-card">-->
+<!--          <div class="award-icon">🥉</div>-->
+<!--          <h4>2<sup>nd</sup> Runner Up</h4>-->
+<!--          <p>Special Prizes</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+
+<!-- Timeline -->
+<section class="timeline-section">
+  <div class="timeline-title-main">TeachX Timeline</div>
+  <div class="timeline-container">
+    <div class="timeline-center-line"></div>
+    <!-- 1 -->
+    <div class="timeline-row">
+      <div class="timeline-col">
+        <div class="timeline-card">
+          <div class="timeline-title">Registrations Open</div>
+          <div class="timeline-date">June 16</div>
+          <div class="timeline-desc">Secure your spot. Registration begins on June 31st</div>
+        </div>
+      </div>
+      <div class="timeline-connector-wrap">
+        <div class="timeline-connector"></div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-col right"></div>
+    </div>
+    <!-- 2 -->
+    <div class="timeline-row">
+      <div class="timeline-col"></div>
+      <div class="timeline-connector-wrap">
+        <div class="timeline-connector"></div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-col right">
+        <div class="timeline-card">
+          <div class="timeline-title">Awareness Session</div>
+          <div class="timeline-date">June 28</div>
+          <div class="timeline-desc">Get the inside scoop - Join our info session on September 28th</div>
+        </div>
+      </div>
+    </div>
+    <!-- 3 -->
+    <div class="timeline-row">
+      <div class="timeline-col">
+        <div class="timeline-card">
+          <div class="timeline-title">Technical Session</div>
+          <div class="timeline-date">June 01</div>
+          <div class="timeline-desc">To skill up attend our Tech Session on October 1st</div>
+        </div>
+      </div>
+      <div class="timeline-connector-wrap">
+        <div class="timeline-connector"></div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-col right"></div>
+    </div>
+    <!-- 4 -->
+    <div class="timeline-row">
+      <div class="timeline-col"></div>
+      <div class="timeline-connector-wrap">
+        <div class="timeline-connector"></div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-col right">
+        <div class="timeline-card">
+          <div class="timeline-title">Registration Close</div>
+          <div class="timeline-date">July 03</div>
+          <div class="timeline-desc">Don't delay, Registration ends on July 3rd</div>
+        </div>
+      </div>
+    </div>
+    <!-- 5 -->
+    <div class="timeline-row">
+      <div class="timeline-col">
+        <div class="timeline-card">
+          <div class="timeline-title">TeachX Event</div>
+          <div class="timeline-date">July 19</div>
+          <div class="timeline-desc">Code your way to the top on July 5th</div>
+        </div>
+      </div>
+      <div class="timeline-connector-wrap">
+        <div class="timeline-connector"></div>
+        <div class="timeline-dot"></div>
+      </div>
+      <div class="timeline-col right"></div>
+    </div>
+    <!-- 6 -->
+<!--    <div class="timeline-row">-->
+<!--      <div class="timeline-col"></div>-->
+<!--      <div class="timeline-connector-wrap">-->
+<!--        <div class="timeline-connector"></div>-->
+<!--        <div class="timeline-dot"></div>-->
+<!--      </div>-->
+<!--      <div class="timeline-col right">-->
+<!--        <div class="timeline-card highlight">-->
+<!--          <div class="timeline-title">Final Hackathon</div>-->
+<!--          <div class="timeline-date">October 13</div>-->
+<!--          <div class="timeline-desc">The ultimate showdown is on October 13th - Be there...</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+  </div>
+</section>
+
+<!-- Endorsements -->
+<section class="py-5 grid-bg">
+  <div class="container">
+    <h2 class="section-title">Endorsements</h2>
+    <div class="row justify-content-center g-4">
+      <div class="col-md-5">
+        <div class="endorsement-box">
+          <div class="endorsement-title">Ms. lorem ipsum</div>
+          <div class="endorsement-divider"></div>
+          <p>
+            “Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis harum!”
+          </p>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="endorsement-box">
+          <div class="endorsement-title">Kishan Deenul</div>
+          <div class="endorsement-divider"></div>
+          <p>
+            “minus odit possimus, tenetur ut veritatis vitae! Aliquam culpa eos, excepturi facere, fugiat illum laborum laudantium nobis nostrum recusandae ut!”
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sponsors -->
+<section class="py-5 grid-bg">
+  <div class="container">
+    <h2 class="section-title">Sponsors</h2>
+    <div class="row justify-content-center g-4">
+      <div class="col-md-4">
+        <div class="sponsor-card">
+          <div class="sponsor-icon">💎</div>
+          <div>Diamond Sponsor</div>
+          <span class="sponsor-badge">Knowledge partner</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="sponsor-card">
+          <div class="sponsor-icon">💎</div>
+          <div>Diamond Sponsor</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="sponsor-card">
+          <div class="sponsor-icon">💎</div>
+          <div>Diamond Sponsor</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Registration Countdown -->
+<section class="registration-section" id="register">
+  <div class="container">
+    <div class="registration-content">
+      <h2 class="section-title">Registration</h2>
+      <p>Registrations open soon. Stay tuned!</p>
+      <div class="countdown" id="countdown-timer">00 : 00 : 00 : 00</div>
+      <a href="#" class="btn btn-lg btn-dark glow-btn animate__animated animate__pulse animate__infinite">Register Now</a>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section py-5 grid-bg">
+  <div class="container">
+    <h2 class="section-title" style="text-align:center;font-weight:bold;color:#fff;margin-bottom:2.5rem;">
+      Frequently Asked Questions
+    </h2>
+    <div class="faq-accordion">
+      <div class="faq-item open">
+        <button class="faq-question">
+          <span>What is TeachX</span>
+          <i class="bi bi-arrow-down-circle faq-chevron"></i>
+        </button>
+        <div class="faq-answer">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut dolor error eveniet fuga ipsam non quasi rem rerum sit tenetur. Ducimus eum iste minima omnis optio quis repellat saepe tempora?
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Who can participate?</span>
+          <i class="bi bi-arrow-down-circle faq-chevron"></i>
+        </button>
+        <div class="faq-answer">
+          Any student passionate about programming and problem-solving can participate!
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>What are the benefits of participating in TechX?/span>
+          <i class="bi bi-arrow-down-circle faq-chevron"></i>
+        </button>
+        <div class="faq-answer">
+          certificates for participate!
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Where is teachX held?</span>
+          <i class="bi bi-arrow-down-circle faq-chevron"></i>
+        </button>
+        <div class="faq-answer">
+          The event is held at Wayamba University Srilanka
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>How to join teachX?</span>
+          <i class="bi bi-arrow-down-circle faq-chevron"></i>
+        </button>
+        <div class="faq-answer">
+          Register online using the registration link above!
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="mb-2">
+      <img src="https://placehold.co/80x24/111/fff?text=WUSL" alt="WUSL" style="margin:0 10px;vertical-align:middle;">
+      <img src="https://placehold.co/80x24/111/fff?text=IEEE" alt="IEEE" style="margin:0 10px;vertical-align:middle;">
+      <img src="https://placehold.co/80x24/111/fff?text=IEEECS" alt="IEEECS" style="margin:0 10px;vertical-align:middle;">
+    </div>
+    <p>Powered by WUSL IEEE, Computer Society</p>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Animated Counter JS -->
+<script>
+  // Counter animation
+  function animateCounter(id, target, duration) {
+    let elem = document.getElementById(id);
+    let start = 0;
+    let increment = target / (duration / 16);
+    function updateCounter() {
+      start += increment;
+      if (start < target) {
+        elem.textContent = Math.floor(start);
+        requestAnimationFrame(updateCounter);
+      } else {
+        elem.textContent = target + (id === 'prizes-count' ? 'K+' : '+');
+      }
+    }
+    updateCounter();
+  }
+  window.onload = function() {
+    animateCounter('teams-count', 50, 1200);
+    animateCounter('participants-count', 130, 1200);
+    animateCounter('prizes-count', 50, 1200);
+  };
+
+  // Countdown timer
+  const eventDate = new Date('2025-07-19T09:00:00').getTime();
+  const countdown = document.getElementById('countdown-timer');
+  setInterval(() => {
+    const now = new Date().getTime();
+    let distance = eventDate - now;
+    if (distance < 0) distance = 0;
+    const days = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2,'0');
+    const hours = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2,'0');
+    const minutes = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2,'0');
+    const seconds = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2,'0');
+    countdown.textContent = `${days} : ${hours} : ${minutes} : ${seconds}`;
+  }, 1000);
+
+  // FAQ accordion toggle
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const item = btn.parentElement;
+      const openItem = document.querySelector('.faq-item.open');
+      if (openItem && openItem !== item) openItem.classList.remove('open');
+      item.classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>
+
