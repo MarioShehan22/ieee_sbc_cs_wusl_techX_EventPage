@@ -228,6 +228,9 @@ body {
     .timeline-card { padding: 24px 12px 20px 12px; font-size: 1em;}
 }
 @media (max-width: 767px) {
+    /*.glow-btn{*/
+    /*    width: 10rem;*/
+    /*}*/
     .timeline-section { padding: 16px 0 40px 0; }
     .timeline-title-main { font-size: 1.3rem; margin-bottom: 22px;}
     .timeline-container { width: 100vw; }
@@ -244,7 +247,7 @@ body {
     .timeline-card {
         margin: 0 0 0 36px !important;
         min-width: 0;
-        max-width: 95vw;
+        max-width: 90vw;
         width: 100%;
         font-size: 0.97em;
         padding: 16px 8px 14px 12px;
