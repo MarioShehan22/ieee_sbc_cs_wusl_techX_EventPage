@@ -19,7 +19,7 @@ body {
 }
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(90deg, #1e2a3a 0%, var(--theme-accent) 100%);
+    background: linear-gradient(90deg, #111111 0%, var(--theme-accent) 100%);
     color: #fff;
     height: 70vh;
     padding: 100px 0 80px 0;
@@ -350,7 +350,7 @@ body {
 }
 /* Registration */
 .registration-section {
-    background: linear-gradient(90deg, #1e2a3a 0%, var(--theme-accent) 100%);
+    background: linear-gradient(90deg, #111111 0%, var(--theme-accent) 100%);
     color: #fff;
     text-align: center;
     padding: 60px 0 40px 0;
